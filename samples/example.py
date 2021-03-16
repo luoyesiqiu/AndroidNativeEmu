@@ -31,7 +31,7 @@ for module in emulator.modules:
 # Add debugging.
 def hook_code(mu, address, size, user_data):
     instruction = mu.mem_read(address, size)
-    if mu.:
+    if len(instruction) == 2:
         cp = Cs(CS_ARCH_ARM,CS_MODE_THUMB)
     elif len(instruction) == 4:
         cp = Cs(CS_ARCH_ARM,CS_MODE_ARM)
