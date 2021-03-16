@@ -3,7 +3,8 @@ import sys
 
 from unicorn import UC_HOOK_CODE
 from unicorn.arm_const import *
-
+from capstone import *
+from capstone.arm_const import *
 from androidemu.emulator import Emulator
 
 # Configure logging
@@ -30,14 +31,17 @@ for module in emulator.modules:
 # Add debugging.
 def hook_code(mu, address, size, user_data):
     instruction = mu.mem_read(address, size)
-    instruction_str = ''.join('{:02x} '.format(x) for x in instruction)
-
-    print('# Tracing instruction at 0x%x, instruction size = 0x%x, instruction = %s' % (address, size, instruction_str))
+    if mu.:
+        cp = Cs(CS_ARCH_ARM,CS_MODE_THUMB)
+    elif len(instruction) == 4:
+        cp = Cs(CS_ARCH_ARM,CS_MODE_ARM)
+    
+    for ins in cp.disasm(instruction,0x1000):
+        print('# Tracing ins at 0x%x, ins size = 0x%x, ins = %s\t%s' % (address, ins.size, ins.mnemonic, ins.op_str))
 
 
 emulator.mu.hook_add(UC_HOOK_CODE, hook_code)
 
 # Runs a method of "libnative-lib.so" that calls an imported function "strlen" from "libc.so".
 emulator.call_symbol(lib_module, '_Z4testv')
-
 print("String length is: %i" % emulator.mu.reg_read(UC_ARM_REG_R0))
