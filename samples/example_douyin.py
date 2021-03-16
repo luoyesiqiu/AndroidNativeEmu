@@ -118,11 +118,11 @@ emulator.java_classloader.add_class(java_lang_Thread)
 emulator.java_classloader.add_class(java_lang_StackTraceElement)
 
 # Load all libraries.
-emulator.load_library("./example_binaries/libdl.so")
-emulator.load_library("./example_binaries/libc.so")
-emulator.load_library("./example_binaries/libstdc++.so")
-emulator.load_library("./example_binaries/libm.so")
-lib_module = emulator.load_library("./example_binaries/libcms.so")
+emulator.load_library("./example_binaries/arm/sys/libdl.so")
+emulator.load_library("./example_binaries/arm/sys/libc.so")
+emulator.load_library("./example_binaries/arm/sys/libstdc++.so")
+emulator.load_library("./example_binaries/arm/sys/libm.so")
+lib_module = emulator.load_library("./example_binaries/arm/user/libcms.so")
 
 # Show loaded modules.
 logger.info("Loaded modules:")
